@@ -19,5 +19,8 @@
   "license": "MIT",
   "devDependencies": {
     "eslint": "^8.2.0"
+  },
+  "dependencies": {
+    "nano": "^9.0.5"
   }
 }
