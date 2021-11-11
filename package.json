@@ -1,5 +1,6 @@
 {
   "name": "time-to-relax",
+  "type": "module",
   "version": "0.1.0",
   "description": "Opinionated ORM for CouchDB",
   "main": "./lib/index.js",
