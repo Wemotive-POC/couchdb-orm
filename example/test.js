@@ -1,6 +1,6 @@
 import { Schema } from "../lib/index.js";
 
-const schema = new Schema({
+const schema = Schema({
 	name: {
 		required: true,
 		type: String
@@ -22,7 +22,20 @@ const schema = new Schema({
 		type: {
 			address: {
 				required: true,
-				type: Number
+				type: String
+			},
+			lane: {
+				required: false,
+				type: {
+					lane1: {
+						required: true,
+						type: String
+					},
+					lane2: {
+						required: false,
+						type: String
+					}
+				}
 			},
 			pincode: {
 				required: true,
@@ -31,8 +44,6 @@ const schema = new Schema({
 		}
 	}
 });
-
-console.log(schema.generateValidator())
 
 const docs = [
 	{
@@ -47,5 +58,42 @@ const docs = [
 		name: "Irene",
 		phoneNo: "9999999999"
 	},
+	{
+		name: "Irene",
+		phoneNo: "9999999999",
+		address: {}
+	},
+	{
+		name: "Irene",
+		phoneNo: "9999999999",
+		address: {
+			address: "foo-bar",
+			pincode: "190014"
+		}
+	},
+	{
+		name: "Irene",
+		phoneNo: "9999999999",
+		address: {
+			address: "foo-bar",
+			lane: {
+				lane1: "Blah"
+			},
+			pincode: 190014
+		}
+	},
+	{
+		name: "Irene",
+		phoneNo: "9999999999",
+		address: {
+			address: "foo-bar",
+			lane: {
+				lane1: "Blah",
+				lane2: 15710
+			},
+			pincode: 190014
+		}
+	},
 ];
-docs.forEach(i => { console.log(i); console.log(schema.isValidDoc(i)); })
+console.log(schema.schema);
+docs.forEach(i => { console.log(i); console.log(schema.isValidDoc(i, true), "\n\n"); })
