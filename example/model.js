@@ -18,15 +18,15 @@ const userSchema = Schema({
     }
 });
 
-const User = Model(userSchema, { defaultDB: "users", dbPrefix: "users-" });
+const User = Model(userSchema, { defaultDB: "users", dbPrefix: "users_" });
 
 
-const conn = new Connection(env.COUCH_DB_URL);
+const conn = Connection(env.COUCH_DB_URL);
 User.connect(conn);
 
 
 (async () => {
-    const dummyOrg = User();
+    const dummyOrg = User("dummyOrg");
     await dummyOrg.createDB({ existsOk: true });
     await dummyOrg.insert({
         name: "Irene",
