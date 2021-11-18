@@ -1,5 +1,5 @@
-import { env } from "process";
-import { Connection, Model, Schema  } from "../lib/index.js";
+const { env } = require("process");
+const { Connection, Model, Schema  } = require("../lib/index.js");
 
 
 const userSchema = Schema({
@@ -18,15 +18,12 @@ const userSchema = Schema({
     }
 });
 
-const User = Model(userSchema, { defaultDB: "users", dbPrefix: "users_" });
-
-
 const conn = Connection(env.COUCH_DB_URL);
-User.connect(conn);
+const User = Model(userSchema, { defaultDB: "users", dbPrefix: "users_" })(conn);
 
 
 (async () => {
-    const dummyOrg = User("dummyOrg");
+    const dummyOrg = User("dummyorg");
     await dummyOrg.createDB({ existsOk: true });
     await dummyOrg.insert({
         name: "Irene",
