@@ -24,7 +24,9 @@ const User = Model(userSchema, { defaultDB: "users", dbPrefix: "users_" })(conn)
 
 (async () => {
     const dummyOrg = User("dummyorg");
+    const spamOrg = User("spamorg");
     await dummyOrg.createDB({ existsOk: true });
+    await spamOrg.createDB({ existsOk: true });
     await dummyOrg.insert({
         name: "Irene",
         email: "irene@webionite.com",
@@ -45,4 +47,7 @@ const User = Model(userSchema, { defaultDB: "users", dbPrefix: "users_" })(conn)
 
     const all = await dummyOrg.findAll({ selector: { name: "Irene" } });
     console.log(all.docs);
+
+    console.log("Replicating");
+    await dummyOrg.replicate(spamOrg, { continuous: false });
 })();
