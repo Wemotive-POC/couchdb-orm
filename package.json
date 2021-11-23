@@ -1,6 +1,6 @@
 {
   "name": "couchdb-orm",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "Opinionated ORM for CouchDB",
   "main": "./lib/index.js",
   "scripts": {
@@ -22,5 +22,6 @@
   },
   "dependencies": {
     "nano": "^9.0.5"
-  }
+  },
+  "repository": "https://github.com/Wemotive-POC/couchdb-orm"
 }
