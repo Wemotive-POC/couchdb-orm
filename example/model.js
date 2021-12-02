@@ -37,10 +37,14 @@ const User = Model(userSchema, { defaultDB: "users", dbPrefix: "users_" })(conn)
         email: "irene@wemotiveforge.com",
     });
 
-    await dummyOrg.insert({
+    const foo = await dummyOrg.insert({
         name: "Foo",
         email: "foo@bar.com",
     });
+
+    console.log(`Getting by id: ${foo.id}`);
+    const fooFromDb = await dummyOrg.get(foo.id);
+    console.log(fooFromDb);
 
     const one = await dummyOrg.findOne({selector: {  email: "foo@bar.com"  }});
     console.log(one);
