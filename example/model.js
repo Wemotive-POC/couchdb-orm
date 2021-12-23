@@ -52,6 +52,9 @@ const User = Model(userSchema, { defaultDB: "users", dbPrefix: "users_" })(conn)
     const all = await dummyOrg.findAll({ selector: { name: "Irene" } });
     console.log(all.docs);
 
+    const paginated = await dummyOrg.findPaginated({ selector: {} }, 2, 0);
+    console.log(paginated);
+
     console.log("Replicating");
     await dummyOrg.replicate(spamOrg, { continuous: false });
 })();
