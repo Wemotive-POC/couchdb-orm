@@ -1,6 +1,6 @@
 {
   "name": "couchdb-orm",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "description": "Opinionated ORM for CouchDB",
   "main": "./lib/index.js",
   "scripts": {
