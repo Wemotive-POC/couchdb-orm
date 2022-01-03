@@ -57,4 +57,16 @@ const User = Model(userSchema, { defaultDB: "users", dbPrefix: "users_" })(conn)
 
     console.log("Replicating");
     await dummyOrg.replicate(spamOrg, { continuous: false });
+    spamOrg.schema = Schema({
+        name: {
+            type: String,
+        },
+        email: {
+            type: String,
+        },
+        phoneNumber: {
+            type: String,
+        },
+    });
+    await spamOrg.migrate();
 })();
