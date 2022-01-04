@@ -16,6 +16,27 @@ const userSchema = Schema({
                 throw({ forbidden: "Email doesn't match the email regex" });
         }
     }
+}, {
+    indexes: [
+        {
+            index: {
+                fields: ["email"],
+            },
+            name: "email",
+        },
+        {
+            index: {
+                fields: ["name"],
+            },
+            name: "name",
+        },
+        {
+            index: {
+                fields: []
+            },
+            name: "none"
+        }
+    ]
 });
 
 const conn = Connection(env.COUCH_DB_URL);
@@ -27,6 +48,20 @@ const User = Model(userSchema, { defaultDB: "users", dbPrefix: "users_" })(conn)
     const spamOrg = User("spamorg");
     await dummyOrg.createDB({ existsOk: true });
     await spamOrg.createDB({ existsOk: true });
+    await dummyOrg.migrate();
+
+    spamOrg.schema = Schema({
+        name: {
+            type: String,
+        },
+        email: {
+            type: String,
+        },
+        phoneNumber: {
+            type: String,
+        },
+    });
+    await spamOrg.migrate();
     await dummyOrg.insert({
         name: "Irene",
         email: "irene@webionite.com",
@@ -57,16 +92,5 @@ const User = Model(userSchema, { defaultDB: "users", dbPrefix: "users_" })(conn)
 
     console.log("Replicating");
     await dummyOrg.replicate(spamOrg, { continuous: false });
-    spamOrg.schema = Schema({
-        name: {
-            type: String,
-        },
-        email: {
-            type: String,
-        },
-        phoneNumber: {
-            type: String,
-        },
-    });
-    await spamOrg.migrate();
+    console.log("Replicated");
 })();
