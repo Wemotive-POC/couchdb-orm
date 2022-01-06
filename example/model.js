@@ -24,18 +24,8 @@ const userSchema = Schema({
             },
             name: "email",
         },
-        {
-            index: {
-                fields: ["name"],
-            },
-            name: "name",
-        },
-        {
-            index: {
-                fields: []
-            },
-            name: "none"
-        }
+        ["name"],
+        [],
     ]
 });
 
